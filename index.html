@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" href="style.css">
+    <title>Weather Dashboard</title>
+</head>
+<body>
+    <!--Button and user input -->
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand">Weather Dashboard</a>
+        <form class="form-inline">
+          <input class="form-control mr-sm-2" placeholder="Enter City..."  id="city">
+          <button class="btn btn-outline-success my-2 my-sm-0" id="search-button">Search</button>
+        </form>
+      </nav>
+    <!--Flex to be given to a jumbotron and 5-day-forecast cards generated with bootstrap-->  
+      <main class="main-container">
+        <div id="search-history">
+           <!-- <span class="badge badge-pill badge-info">Info</span>-->
+        </div>
+        <div class="jumbotron">
+            
+            <h1 class="display-4">Hello, world!</h1>
+            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+            <hr class="my-4">
+            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+            
+          </div>
+          <div id="5-day-forecast">
+           <!-- <div class="card" style="width: 18rem;">
+           <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Cras justo odio</li>
+              <li class="list-group-item">Dapibus ac facilisis in</li>
+              <li class="list-group-item">Vestibulum at eros</li>
+            </ul>
+            <div class="card-body">
+              <a href="#" class="card-link">Card link</a>
+              <a href="#" class="card-link">Another link</a>
+            </div>
+            
+          </div>
+        -->
+            </div>
+      </main>
+
+ 
+</body>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="index.js"></script>
+</html>
