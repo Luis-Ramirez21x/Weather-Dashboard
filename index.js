@@ -10,7 +10,7 @@ var lon;
 var city;
 var dt;
 var cityObj = [];
-
+var dtConverted;
 
 //jumbotron display variables
 var cityDis = $('.city');
@@ -21,10 +21,9 @@ var humidityDis = $('.humidity');
 var windDis = $('.wind-speed');
 var uvDis = $('.uv-index');
 
-
 function storeCityData(){
     city = userInput.val();
-    var tempUrl= 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=4e786a5e8e68f6840ef00ecf000f2217'
+    var tempUrl= 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=4e786a5e8e68f6840ef00ecf000f2217';
     
     fetch(tempUrl)
         .then(function(response){
@@ -34,7 +33,7 @@ function storeCityData(){
             lat = data.coord.lat;
             lon = data.coord.lon;
 
-            oneCallUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&appid=4e786a5e8e68f6840ef00ecf000f2217';
+            oneCallUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&units=imperial&appid=4e786a5e8e68f6840ef00ecf000f2217';
             
             fetch(oneCallUrl)
                 .then(function(response){
@@ -42,15 +41,9 @@ function storeCityData(){
                 })
                 .then(function (data){
                     console.log(data);
-                    console.log(data.current.weather.id);
-                    console.log(data.current.humidity);
-                    console.log(data.current.uvi);
                     localStorage.setItem(city, JSON.stringify(data));
-                    
-                    console.log(city);
                     displayCityInfo();
                     display5Day();
-                    
                 })
         })
 }
@@ -64,40 +57,56 @@ function displayCityInfo() {
     
     //displaying city weather info on jumbotron
     cityDis.text(city);
-    dateDis.text('10/10/10');
-    weatherDis.text(cityObj.current.weather.id);
-    console.log(cityObj.current.weather.id);
-    tempDis.text(cityObj.current.temp);
-    humidityDis.text(cityObj.current.humidity);
-    windDis.text(cityObj.current.wind_speed);
+    var unixDate = cityObj.daily[0].dt;
+    var currentDate = new Date(unixDate * 1000);
+    dateDis.text(currentDate.getMonth()+1 +'/'+ currentDate.getDate() + '/' + currentDate.getFullYear());
+   //need to create a function to categorize weather icon
+   // weatherDis.text(cityObj.current.weather[0].id);
+    weatherDis.attr('src',weatherIconURL(cityObj.current.weather[0].icon));
+    
+    tempDis.text(cityObj.current.temp + '°F');
+    humidityDis.text(cityObj.current.humidity + '%');
+    windDis.text(cityObj.current.wind_speed + 'mph');
     uvDis.text(cityObj.current.uvi);
 
+}
+
+function weatherIconURL(weatherIdCode){
+    var iconCode= weatherIdCode;
+    console.log(iconCode);
+    var weatherUrl = 'http://openweathermap.org/img/wn/' + iconCode + '@2x.png';
+    console.log(weatherUrl);
+    return weatherUrl;
 }
 
 function display5Day() {
     //forecast weather is in cityObj, just iterate through 5 days in cityObj.daily[i].infoNeeded
     for(i = 1; i < 6; i++){
         dt = cityObj.daily[i].dt;
+        date = new Date(dt * 1000);
         
         console.log(dt);
+        console.log(date);
+        console.log();
+        //console.log(dt.getMonth());
         //creating card elements
         var divCardParent = $('<div>');
         var cardBodyEl = $('<div>');
         var dateEl = $('<h5>');
         var listContainer = $('<ul>');
-        var weatherLi = $('<li>');
+        var weatherLi = $('<img>');
         var tempLi = $('<li>');
         var windLi = $('<li>');
         var humidityLi = $('<li>');
         //adding bootstrap classes to elements
         divCardParent.addClass('card').attr('style', 'width:18rem');
         cardBodyEl.addClass('card-body');
-        dateEl.addClass('card-title').text(dt);
+        dateEl.addClass('card-title').text(date.getMonth()+1 +'/'+ date.getDate() + '/' +date.getFullYear());
         listContainer.addClass('list-group list-group-flush');
-        weatherLi.addClass('list-group-item').text(cityObj.daily[i].id);
-        tempLi.addClass('list-group-item').text(cityObj.daily[i].temp.day);
-        windLi.addClass('list-group-item').text(cityObj.daily[i].wind_speed);
-        humidityLi.addClass('list-group-item').text(cityObj.daily[i].humidity);
+        weatherLi.addClass('list-group-item').attr('src', 'http://openweathermap.org/img/wn/' + cityObj.daily[i].weather[0].icon + '@2x.png');
+        tempLi.addClass('list-group-item').text(cityObj.daily[i].temp.day + '°F');
+        windLi.addClass('list-group-item').text(cityObj.daily[i].wind_speed + 'mph');
+        humidityLi.addClass('list-group-item').text(cityObj.daily[i].humidity + '%');
         //appending elements to display card
         cardContainer.append(divCardParent);
         divCardParent.append(cardBodyEl);

@@ -1,4 +1,10 @@
-/*div{
+div{
     display:flex;
     flex-wrap: wrap;
+}
+
+.jumbotron{
+    display:flex;
+    flex-wrap: wrap;
+    flex-direction: column;
 }
