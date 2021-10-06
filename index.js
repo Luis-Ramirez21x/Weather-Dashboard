@@ -19,7 +19,7 @@ var weatherDis = $('.weather-icon');
 var tempDis = $('.temp');
 var humidityDis = $('.humidity');
 var windDis = $('.wind-speed');
-var uvDis = $('.uv-index');
+var uvDis = $('#uv-index');
 
 function storeCityData(){
     city = userInput.val();
@@ -44,6 +44,7 @@ function storeCityData(){
                     localStorage.setItem(city, JSON.stringify(data));
                     displayCityInfo();
                     display5Day();
+                    //displayCityButton();
                 })
         })
 }
@@ -53,43 +54,47 @@ function displayCityInfo() {
     //how can i get each key to display?
     console.log(JSON.parse(localStorage.getItem(city)));
     cityObj=JSON.parse(localStorage.getItem(city));
-    console.log(city);
+    //console.log(city);
     
     //displaying city weather info on jumbotron
     cityDis.text(city);
     var unixDate = cityObj.daily[0].dt;
     var currentDate = new Date(unixDate * 1000);
     dateDis.text(currentDate.getMonth()+1 +'/'+ currentDate.getDate() + '/' + currentDate.getFullYear());
-   //need to create a function to categorize weather icon
-   // weatherDis.text(cityObj.current.weather[0].id);
+    //need to create a function to categorize weather icon
+    // weatherDis.text(cityObj.current.weather[0].id);
     weatherDis.attr('src',weatherIconURL(cityObj.current.weather[0].icon));
-    
+    //
     tempDis.text(cityObj.current.temp + '°F');
     humidityDis.text(cityObj.current.humidity + '%');
     windDis.text(cityObj.current.wind_speed + 'mph');
+    var uvi = cityObj.current.uvi;
+    if(uvi < 3){
+        uvDis.attr('style', 'background-color:green');
+    }else if(uvi > 2 && uvi < 8 ){
+        uvDis.attr('style', 'background-color:orange');
+    }else {
+        uvDis.attr('style', 'background-color:red');
+    }
     uvDis.text(cityObj.current.uvi);
-
+    console.log(cityObj.current.uvi);
 }
 
 function weatherIconURL(weatherIdCode){
     var iconCode= weatherIdCode;
-    console.log(iconCode);
+    //console.log(iconCode);
     var weatherUrl = 'http://openweathermap.org/img/wn/' + iconCode + '@2x.png';
-    console.log(weatherUrl);
+    //console.log(weatherUrl);
     return weatherUrl;
 }
 
 function display5Day() {
+    $("#5-day-forecast").html("");
     //forecast weather is in cityObj, just iterate through 5 days in cityObj.daily[i].infoNeeded
     for(i = 1; i < 6; i++){
         dt = cityObj.daily[i].dt;
         date = new Date(dt * 1000);
         
-        console.log(dt);
-        console.log(date);
-        console.log();
-        //console.log(dt.getMonth());
-        //creating card elements
         var divCardParent = $('<div>');
         var cardBodyEl = $('<div>');
         var dateEl = $('<h5>');
@@ -119,8 +124,11 @@ function display5Day() {
     }
 }
 
-function saveCity() {
-
+function displayCityButton() {
+    var buttonEl = $('<button>');
+    ///create on click function for city name set to userinput in search box so that button does not repeat
+    buttonEl.attr('type', 'button').attr('id', city).addClass("btn btn-primary btn-sm").text(city);
+    cityContainer.append(buttonEl);
 }
 
 searchBtn.click(function(event) {
@@ -128,3 +136,13 @@ searchBtn.click(function(event) {
 })
 
 searchBtn.on('click', storeCityData);
+searchBtn.on('click', displayCityButton);
+cityContainer.on('click', function(event){
+    event.preventDefault();
+    var element = event.target;
+    userInput.val(element.getAttribute("id"));
+    //console.log(element);
+    //console.log(city);
+    storeCityData();
+})
+
