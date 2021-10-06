@@ -2,7 +2,10 @@
     display:flex;
     flex-wrap: wrap;
 }
-
+#5-day-forecast{
+    display: flex;
+    flex-wrap: wrap;
+}
 .jumbotron{
     display:flex;
     flex-wrap: wrap;
@@ -14,3 +17,28 @@ span{
     padding:5px;
     color:white;
 }
+h1{
+    width:100%
+}
+.navbar{
+    height: 104px;
+}
+
+.main-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.jumbotron{
+    width:35%;
+    padding:65px;
+    
+}
+
+#5-day-forecast{
+    width:65%;
+    padding:56px;
+    display: flex;
+    flex-wrap: wrap;
+}
+

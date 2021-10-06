@@ -90,11 +90,14 @@ function weatherIconURL(weatherIdCode){
 
 function display5Day() {
     $("#5-day-forecast").html("");
+    var h1El = $('<h1>');
+    h1El.text('5 Day Forecast');
+    cardContainer.append(h1El);
     //forecast weather is in cityObj, just iterate through 5 days in cityObj.daily[i].infoNeeded
     for(i = 1; i < 6; i++){
         dt = cityObj.daily[i].dt;
         date = new Date(dt * 1000);
-        
+        //var h1El = $('<h1>');
         var divCardParent = $('<div>');
         var cardBodyEl = $('<div>');
         var dateEl = $('<h5>');
@@ -104,6 +107,7 @@ function display5Day() {
         var windLi = $('<li>');
         var humidityLi = $('<li>');
         //adding bootstrap classes to elements
+        //h1El.text('5 Day Forecast');
         divCardParent.addClass('card').attr('style', 'width:18rem');
         cardBodyEl.addClass('card-body');
         dateEl.addClass('card-title').text(date.getMonth()+1 +'/'+ date.getDate() + '/' +date.getFullYear());
@@ -113,6 +117,7 @@ function display5Day() {
         windLi.addClass('list-group-item').text(cityObj.daily[i].wind_speed + 'mph');
         humidityLi.addClass('list-group-item').text(cityObj.daily[i].humidity + '%');
         //appending elements to display card
+        //cardContainer.append(h1El);
         cardContainer.append(divCardParent);
         divCardParent.append(cardBodyEl);
         cardBodyEl.append(dateEl);
