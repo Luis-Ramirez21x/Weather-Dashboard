@@ -22,8 +22,11 @@ h1{
 }
 .navbar{
     height: 104px;
+    margin-bottom: 10px;
 }
-
+main div{
+    display: flex;
+    flex-wrap: wrap;}
 .main-container{
     display: flex;
     flex-wrap: wrap;
@@ -32,13 +35,35 @@ h1{
 .jumbotron{
     width:35%;
     padding:65px;
+    flex-direction: column;
+    margin:10px;
     
 }
-
-#5-day-forecast{
-    width:65%;
+.forecast{
+    width:63%;
     padding:56px;
-    display: flex;
-    flex-wrap: wrap;
 }
 
+nav a{
+    margin-left: -370px;
+    //font-size: larger;
+}
+.card{
+    border-radius: 1.25rem;
+    /* padding: 0px; */
+    margin: 6px;
+    width:12rem !important;
+}
+.navbar-brand{
+    font-size: 2.25rem;;
+}
+.btn{
+    margin:10px;
+    margin-left: 0px;
+}
+.card{
+    background-color: #007bff;
+}
+h5{
+    color:white;
+}
