@@ -65,9 +65,9 @@ function displayCityInfo() {
     // weatherDis.text(cityObj.current.weather[0].id);
     weatherDis.attr('src',weatherIconURL(cityObj.current.weather[0].icon));
     //
-    tempDis.text(cityObj.current.temp + '°F');
-    humidityDis.text(cityObj.current.humidity + '%');
-    windDis.text(cityObj.current.wind_speed + 'mph');
+    tempDis.text('Temp: ' + cityObj.current.temp + '°F');
+    humidityDis.text('Humidity: ' + cityObj.current.humidity + '%');
+    windDis.text('Wind Speed: ' + cityObj.current.wind_speed + 'mph');
     var uvi = cityObj.current.uvi;
     if(uvi < 3){
         uvDis.attr('style', 'background-color:green');
@@ -76,7 +76,7 @@ function displayCityInfo() {
     }else {
         uvDis.attr('style', 'background-color:red');
     }
-    uvDis.text(cityObj.current.uvi);
+    uvDis.text('UV: ' + cityObj.current.uvi);
     console.log(cityObj.current.uvi);
 }
 
@@ -113,9 +113,9 @@ function display5Day() {
         dateEl.addClass('card-title').text(date.getMonth()+1 +'/'+ date.getDate() + '/' +date.getFullYear());
         listContainer.addClass('list-group list-group-flush');
         weatherLi.addClass('list-group-item').attr('src', 'http://openweathermap.org/img/wn/' + cityObj.daily[i].weather[0].icon + '@2x.png');
-        tempLi.addClass('list-group-item').text(cityObj.daily[i].temp.day + '°F');
-        windLi.addClass('list-group-item').text(cityObj.daily[i].wind_speed + 'mph');
-        humidityLi.addClass('list-group-item').text(cityObj.daily[i].humidity + '%');
+        tempLi.addClass('list-group-item').text('Temp: ' + cityObj.daily[i].temp.day + '°F');
+        windLi.addClass('list-group-item').text('Wind Speed: ' + cityObj.daily[i].wind_speed + 'mph');
+        humidityLi.addClass('list-group-item').text("Humidity: " + cityObj.daily[i].humidity + '%');
         //appending elements to display card
         //cardContainer.append(h1El);
         cardContainer.append(divCardParent);
