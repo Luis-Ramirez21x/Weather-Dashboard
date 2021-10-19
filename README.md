@@ -11,3 +11,4 @@ This App used : HTML, CSS, JS, and api calls as well as basic DOM manipulation
 
 Below is a screen capture of app displaying two cities.
 ![Capture](https://user-images.githubusercontent.com/86748117/136309055-75246833-e570-4cad-9a76-fb5a96980837.PNG)
+![weather capture](https://user-images.githubusercontent.com/86748117/137938475-9b62e349-fcaa-430f-9772-2a5557541807.PNG)
